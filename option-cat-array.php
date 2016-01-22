@@ -19,7 +19,7 @@
  **/
 
 
-function annframe_opt_arr() {
+function annframe_opt_arr(){
 
 	$textdomain = 'annframe';
 	$ann_options = array(
