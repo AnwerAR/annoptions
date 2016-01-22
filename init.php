@@ -21,11 +21,11 @@
 
 
 
-	$theme_dir         = 	get_template_directory();
-	$opt_cat_dir       = 	$theme_dir. '/options-cat';
-	$includes_dir 		 =	$opt_cat_dir . '/includes';
-	//$input_dir		   =	$includes.'/inputs';
-	$options_array 	   = $includes_dir. '/option-cat-array.php';
+	$theme_dir      = 	get_template_directory();
+	$opt_cat_dir    = 	$theme_dir. '/options-cat';
+	$includes_dir 	=	$opt_cat_dir . '/includes';
+	//$input_dir	=	$includes.'/inputs';
+	$options_array 	= $includes_dir. '/option-cat-array.php';
 
 
     // This will load the options array and your filled values in $options_array goes here.
