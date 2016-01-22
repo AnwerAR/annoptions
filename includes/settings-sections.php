@@ -23,7 +23,7 @@ function annframe_do_settings_sections( $page ) {
 
   global $wp_settings_sections, $wp_settings_fields;
 
-	if ( ! isset( $wp_settings_sections[$page] ) )
+	if ( !isset( $wp_settings_sections[$page] ) )
 
     return;
 
