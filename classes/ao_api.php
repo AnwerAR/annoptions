@@ -4,7 +4,7 @@
  */
 defined( 'AO_VERSION' ) or die( 'Oh! No script kiddies please.' );
 
-class AO_API  {
+class ao_api  {
 /**
  * Simply Singleton ( ~_~ )
  *
