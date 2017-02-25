@@ -95,6 +95,8 @@ define( 'AO_IMG_URI', AO_ASSETS_URI.trailingslashit('/images') );
 
 
 add_action( 'init', array( 'AO_API', 'run'), 5 );
+add_action( 'init', array( 'ao_settings', 'run'), 5 );
+
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'includes/demo.php';
 
 add_action( 'ao_options', 'ao_registers' );
@@ -118,9 +120,10 @@ function ao_admin_print_scripts() {
   wp_register_style( 'select2', AO_CSS_URI.'select2.css', array(), '4.0.3' );
   wp_register_style( 'ao-style', AO_CSS_URI.'style.css', array(), '1.0' );
 
-  wp_register_script( 'ao-options', AO_JS_URI.'ann_options.js', array('jquery-core'), '1.0', true );
   wp_register_script( 'select2', AO_JS_URI.'select2.js', array('jquery-core'), '1.0', true );
-  wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.min.js', array('jquery-core'), '1.0', true );
+  wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.min.js', array('jquery-core'), '1.2.1', true );
+  wp_register_script( 'ao-options', AO_JS_URI.'ann_options.js', array('jquery-core'), '1.0', true );
+
 
 
   wp_enqueue_style( 'select2' );
@@ -128,7 +131,12 @@ function ao_admin_print_scripts() {
 
   wp_enqueue_script( 'ao-options' );
   wp_enqueue_script( 'select2' );
+  wp_enqueue_script( 'jquery-repeator' );
 
 
+
+}
+add_action('annframe_options', 'annframe_options' );
+function annframe_options( $options ) {
 
 }
