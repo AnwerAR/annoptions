@@ -95,7 +95,10 @@ define( 'AO_IMG_URI', AO_ASSETS_URI.trailingslashit('/images') );
 
 
 add_action( 'init', array( 'AO_API', 'run'), 5 );
-add_action( 'init', array( 'ao_settings', 'run'), 5 );
+
+//it was planned to rewrite ao_api.php into ao_settings.php file but for 
+// now we are still going with old method.
+//add_action( 'init', array( 'ao_settings', 'run'), 5 );
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'includes/demo.php';
 
