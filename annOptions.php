@@ -139,7 +139,11 @@ function ao_admin_print_scripts() {
 
 
 }
-add_action('annframe_options', 'annframe_options' );
-function annframe_options( $options ) {
+add_action('init', 'annframe_options' );
+function annframe_options( ) {
+  $repeater_values = (array) get_option( 'ao_options' );
 
+  echo "<pre>";
+  //print_r( $repeater_values );
+  echo "</pre>";
 }

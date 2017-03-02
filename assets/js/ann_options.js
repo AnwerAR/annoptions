@@ -1,16 +1,13 @@
 jQuery(document).ready( function() {
-  if ( jQuery( '.ao-select' ).not(".ao-repeator-field")) {
 
     jQuery(".ao-select").select2();
     jQuery(".ao-multiselect").select2();
-    }
 });
 function ao_select2() {
   jQuery(".ao-repeator-select").select2();
   jQuery(".ao-repeator-multiselect").select2();
 }
 jQuery(document).ready( function() {
-ao_select2();
            jQuery('form.aoptions-form').submit( function ( e ) {
              e.preventDefault();
                 submit = jQuery('#submit');
@@ -46,8 +43,7 @@ ao_select2();
                 //jQuery(this).slideDown();
             //},
             show: function () {
-              //jQuery(this).addClass('iamadded');
-              //ao_select2();
+              ao_select2();
               //jQuery(this).find('.chosen').chosen({ width: "100%", disable_search: true });
               jQuery(this).slideDown();
             },
