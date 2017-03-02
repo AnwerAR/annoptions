@@ -1,16 +1,13 @@
 jQuery(document).ready( function() {
-  if ( jQuery( '.ao-select' ).not(".ao-repeator-field")) {
 
     jQuery(".ao-select").select2();
     jQuery(".ao-multiselect").select2();
-    }
 });
 function ao_select2() {
   jQuery(".ao-repeator-select").select2();
   jQuery(".ao-repeator-multiselect").select2();
 }
 jQuery(document).ready( function() {
-
            jQuery('form.aoptions-form').submit( function ( e ) {
              e.preventDefault();
                 submit = jQuery('#submit');
@@ -31,22 +28,13 @@ jQuery(document).ready( function() {
 
 
     jQuery(document).ready(function () {
-        jQuery('form').repeater({
+        jQuery('.ao-repeator-wrapper').repeater({
             // (Optional)
             // start with an empty list of repeaters. Set your first (and only)
             // "data-repeater-item" with style="display:none;" and pass the
             // following configuration flag
-            initEmpty: true,
-            // (Optional)
-            // "defaultValues" sets the values of added items.  The keys of
-            // defaultValues refer to the value of the input's name attribute.
-            // If a default value is not specified for an input, then it will
-            // have its value cleared.
-            defaultValues: {
-                'ao_options[ao-repeator][0][ao-admin-mail]': 'placehold@eail.com',
-                'ao-manager-mail': 'placehold@manager.com',
-
-            },
+            initEmpty: false,
+            defaultValues: {},
             // (Optional)
             // "show" is called just after an item is added.  The item is hidden
             // at this point.  If a show callback is not given the item will
@@ -55,7 +43,6 @@ jQuery(document).ready( function() {
                 //jQuery(this).slideDown();
             //},
             show: function () {
-              jQuery(this).addClass('iamadded');
               ao_select2();
               //jQuery(this).find('.chosen').chosen({ width: "100%", disable_search: true });
               jQuery(this).slideDown();

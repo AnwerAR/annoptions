@@ -96,7 +96,7 @@ define( 'AO_IMG_URI', AO_ASSETS_URI.trailingslashit('/images') );
 
 add_action( 'init', array( 'AO_API', 'run'), 5 );
 
-//it was planned to rewrite ao_api.php into ao_settings.php file but for 
+//it was planned to rewrite ao_api.php into ao_settings.php file but for
 // now we are still going with old method.
 //add_action( 'init', array( 'ao_settings', 'run'), 5 );
 
@@ -124,7 +124,7 @@ function ao_admin_print_scripts() {
   wp_register_style( 'ao-style', AO_CSS_URI.'style.css', array(), '1.0' );
 
   wp_register_script( 'select2', AO_JS_URI.'select2.js', array('jquery-core'), '1.0', true );
-  wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.min.js', array('jquery-core'), '1.2.1', true );
+  wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.js', array('jquery-core'), '1.2.1', true );
   wp_register_script( 'ao-options', AO_JS_URI.'ann_options.js', array('jquery-core'), '1.0', true );
 
 
@@ -139,7 +139,11 @@ function ao_admin_print_scripts() {
 
 
 }
-add_action('annframe_options', 'annframe_options' );
-function annframe_options( $options ) {
+add_action('init', 'annframe_options' );
+function annframe_options( ) {
+  $repeater_values = (array) get_option( 'ao_options' );
 
+  echo "<pre>";
+  //print_r( $repeater_values );
+  echo "</pre>";
 }
