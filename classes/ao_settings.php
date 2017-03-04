@@ -110,11 +110,10 @@ public function removeField() {}
 
 private function input_field_classes( $field ) {}
 
-public function addRepeator( $section = null, $field ){
-// if section is okay and field is array -- proceed
-// if field has repeator fields-- extract repeator fields.
-// senitize repeator and fields
-// store repeators in repeator array
-// pass input fields to addFields
+public function input_types() {
+ $input_types = array(
+    'text' => array( 'type => 'text', 'class' => 'form-control' )
+ );
+ $this->input_types = apply_filters( 'annframe_input_types', $input_types );
 }
 } // END of Class.
