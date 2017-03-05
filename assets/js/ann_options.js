@@ -8,6 +8,7 @@ function ao_select2() {
   jQuery(".ao-repeator-multiselect").select2();
 }
 jQuery(document).ready( function() {
+
            jQuery('form.aoptions-form').submit( function ( e ) {
              e.preventDefault();
                 submit = jQuery('#submit');
@@ -46,6 +47,10 @@ jQuery(document).ready( function() {
               ao_select2();
               //jQuery(this).find('.chosen').chosen({ width: "100%", disable_search: true });
               jQuery(this).slideDown();
+            },
+            ready: function () {
+              ao_select2();
+
             },
             // (Optional)
             // "hide" is called when a user clicks on a data-repeater-delete

@@ -54,6 +54,7 @@ define( 'AO_VERSION', '1.0.0' );
  **/
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'classes/ao_autoloader.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'includes/demo.php';
 
 $ao_path = ao_initialize::paths();
 
@@ -94,16 +95,8 @@ define( 'AO_IMG_DIR', AO_ASSETS_DIR.trailingslashit('/images') );
 define( 'AO_IMG_URI', AO_ASSETS_URI.trailingslashit('/images') );
 
 
-add_action( 'init', array( 'AO_API', 'run'), 5 );
-
-//it was planned to rewrite ao_api.php into ao_settings.php file but for
-// now we are still going with old method.
-//add_action( 'init', array( 'ao_settings', 'run'), 5 );
-
-require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'includes/demo.php';
-
-add_action( 'ao_options', 'ao_registers' );
-function ao_registers( $options ) {
+add_action( 'init', array( 'ao_api', 'run' ), 5 );
+add_action( 'ao_options', function( $options ){
   $setPage = new AO_Admin_Registers();
   if ( null != $options->getPages() ) {
     $setPage->pageInit( $options->getPages() );
@@ -117,7 +110,8 @@ function ao_registers( $options ) {
   if ( null != $options->getFields() ) {
     $setPage->fieldInit( $options->getFields() );
   }
-}
+});
+
 
 function ao_admin_print_scripts() {
   wp_register_style( 'select2', AO_CSS_URI.'select2.css', array(), '4.0.3' );
@@ -127,23 +121,10 @@ function ao_admin_print_scripts() {
   wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.js', array('jquery-core'), '1.2.1', true );
   wp_register_script( 'ao-options', AO_JS_URI.'ann_options.js', array('jquery-core'), '1.0', true );
 
-
-
   wp_enqueue_style( 'select2' );
   wp_enqueue_style( 'ao-style' );
-
   wp_enqueue_script( 'ao-options' );
   wp_enqueue_script( 'select2' );
   wp_enqueue_script( 'jquery-repeator' );
 
-
-
-}
-add_action('init', 'annframe_options' );
-function annframe_options( ) {
-  $repeater_values = (array) get_option( 'ao_options' );
-
-  echo "<pre>";
-  //print_r( $repeater_values );
-  echo "</pre>";
 }
