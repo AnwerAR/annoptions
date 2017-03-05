@@ -67,9 +67,6 @@ private function __construct() {
 
   # Access this class.
   do_action( 'ao_options', $this );
-  echo "<pre>";
-  //print_r($this->fields);
-  echo "</pre>";
 
 }
 
@@ -81,7 +78,7 @@ private function __construct() {
  **/
 public static function run() {
   if ( null === self::$_instance ) {
-    self::$_instance = new AO_API();
+    self::$_instance = new ao_api();
   }
   return self::$_instance;
 }
@@ -182,20 +179,20 @@ $this->addField( $section, $field );
  **/
 public function addPage( $page = array() ) {
 
-$page = array_merge(
-  array(
-    'page_title' => null,
-    'menu_title' => '',
-    'cap' => 'manage_options',
-    'slug' => null,
-    'type' => 'menu',
-    'parent' => null,
-    'icon' => 'dashicons-admin-generic',
-    'position' => null,
-    'desc' => '',
-    'sections'  => null
-  ), $page
+$defaults = array(
+  'page_title' => null,
+  'menu_title' => '',
+  'cap' => 'manage_options',
+  'slug' => null,
+  'type' => 'menu',
+  'parent' => null,
+  'icon' => 'dashicons-admin-generic',
+  'position' => null,
+  'desc' => '',
+  'sections'  => null
 );
+$page = wp_parse_args( $page, $defaults );
+$page = apply_filters( 'annframe_get_page_args', $page );
 
 if ( null == $page['page_title'] || null == $page['slug'] ) return;
 
