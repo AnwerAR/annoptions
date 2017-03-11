@@ -10,9 +10,7 @@ class AO_Input_Type_repeator extends AO_Input_Types
     echo "<div class='ao-repeator-wrapper'>";
     echo "<div class='{$this->classes}' data-repeater-list='{$this->getName( $this->field['id'] )}'>";
     echo "<div data-repeater-item>";
-    echo "<pre>";
-    print_r( $repeater_value );
-    echo "</pre>";
+
 
     $counter = '';
     foreach ( $this->field['fields'] as $field => $field_value ) { $counter++;
@@ -22,6 +20,7 @@ class AO_Input_Type_repeator extends AO_Input_Types
 
       		if ( class_exists( $class ) ) {
             $id = $field_value['id'];
+            $field_value['is_rep_field'] = true;
             $field_value['repeator_section'] = $this->field['id'];
             $field_value['default'] = 'some';
              //$avl = $this->field['id'][$field_value['id']];

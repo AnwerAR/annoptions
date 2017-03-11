@@ -43,9 +43,7 @@ public function addSection() {}
 
 public function addField( $section= null, $field = array() ) {
   //if ( null === $section ) return;
-  echo "<pre>";
-  print_r($field);
-  echo "</pre>";
+
   if ( 'repeator' != $field['type'] ) {
     $this->fields[ $field['id'] ] = $this->validate_input_field( $field );
   }
@@ -62,7 +60,7 @@ public function addField( $section= null, $field = array() ) {
 }
 
 private function validate_input_field( $input = array() ) {
-  
+
 
   $input = array_merge(
     array(
