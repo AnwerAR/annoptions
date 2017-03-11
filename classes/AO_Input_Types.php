@@ -27,6 +27,7 @@ public function getName( $name, $option = 'ao_options' ) {
 public function getValue( $id, $default = null, $option = 'ao_options' ) {
 
 $option = (array) get_option( $option );
+
 if ( isset( $option[$id] ) ) {
   if ( null ==  $option[$id] ) {
     $option = $default;

@@ -10,9 +10,9 @@ class AO_Input_Type_multiselect extends AO_Input_Types {
 
   foreach ( (array) $this->field['choices'] as $key => $value ) {
   $output .= '<option value="'. $key .'"';
-
-  if ( is_array( $this->getValue( $this->field['id'] ) )) {
-    foreach ( $this->getValue( $this->field['id'] ) as $selected_key => $selected_value) {
+  $values = $this->getValue( $this->field['id'], $this->field['default'] );
+  if ( is_array( $values ) ) {
+    foreach ( $values as $selected_key => $selected_value) {
       $output .= selected( $selected_value, $key, false );
     }
   }

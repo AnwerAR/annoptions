@@ -14,9 +14,6 @@ class AO_Admin_Registers {
   }
   public function pageInit( $pages = null ) {
     if ( null === $pages ) return;
-    echo "<pre>";
-    //print_r( $pages );
-    echo "</pre>";
     $this->pages = $pages;
     add_action( 'admin_menu', array( $this, 'registerMenuPage' ) );
   }
