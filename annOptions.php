@@ -84,7 +84,7 @@ define( 'AO_CSS_URI', AO_ASSETS_URI.trailingslashit('/css') );
 
 // JS
 define( 'AO_JS_DIR', AO_ASSETS_DIR.trailingslashit('/js') );
-define( 'AO_JS_URI', AO_ASSETS_URI.trailingslashit('/js') );
+define( 'AO_JS_URI', AO_URI.trailingslashit('dist/js') );
 
 // Fonts
 define( 'AO_FONTS_DIR', AO_ASSETS_DIR.trailingslashit('/fonts') );
@@ -119,12 +119,12 @@ function ao_admin_print_scripts() {
 
   wp_register_script( 'select2', AO_JS_URI.'select2.js', array('jquery-core'), '1.0', true );
   wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.js', array('jquery-core'), '1.2.1', true );
-  wp_register_script( 'ao-options', AO_JS_URI.'ann_options.js', array('jquery-core'), '1.0', true );
+  wp_register_script( 'ao-options', AO_JS_URI.'ann-options.js', array('jquery-core'), '1.0', true );
 
   wp_enqueue_style( 'select2' );
   wp_enqueue_style( 'ao-style' );
   wp_enqueue_script( 'ao-options' );
-  wp_enqueue_script( 'select2' );
-  wp_enqueue_script( 'jquery-repeator' );
+  //wp_enqueue_script( 'select2' );
+  //wp_enqueue_script( 'jquery-repeator' );
 
 }
