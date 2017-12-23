@@ -1,6 +1,6 @@
 # annOptions
 A flexible plugin to create WordPress admin panels on the go.
-> *Caution: Still Under Development & not yet ready to use in production env.*
+> *Caution: Still Under Development & not yet ready*
 ## Basic Usage
 ```
 add_action ( 'ao_options', function ( $options ) {
