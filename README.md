@@ -1,7 +1,14 @@
 # annOptions
 A flexible plugin to create WordPress admin panels on the go.
-annOptions framework is still under development. and i am doing good to make this framework truly the best options framework.
+## Basic Usage
+```
+add_action ( 'ao_options', function ( $options ) {
 
-Note for Developers: all developers are specially invited to contribute. 
-
+  $options->setPage(
+    'page_title' => __( 'Page Title' ),
+    'menu_title' => __( 'Page Title' ),
+    '....'       => '...'
+  );
+}
+```
 Documentation is coming soon.
