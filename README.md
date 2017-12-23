@@ -9,6 +9,6 @@ add_action ( 'ao_options', function ( $options ) {
     'menu_title' => __( 'Page Title' ),
     '....'       => '...'
   );
-}
+});
 ```
 Documentation is coming soon.
