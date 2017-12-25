@@ -92,14 +92,26 @@ class AO_Admin_Registers {
   }
 
   public function displayField( $fields ) {
-
-      $class = 'AO_Input_Type_'.$fields['type'];
-      if ( class_exists( $class ) ) {
-        new $class( $fields );
+      /**
+       * @TODO major changings expected here replacing classes with template files
+       * gonna use {ao_get_template_part} function which is defined in include/helpers.php
+       */
+      if ( ! file_exists ( AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php' ) ) {
+        echo "Input type template does not exists. Please create one<br>";
+        echo AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php';
       }
       else {
-        echo 'Class <code>'. $class .'</code> not exists';
+        ao_get_template_part( AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php', $fields );
       }
+
+
+      // $class = 'AO_Input_Type_'.$fields['type'];
+      // if ( class_exists( $class ) ) {
+      //   new $class( $fields );
+      // }
+      // else {
+      //   echo 'Class <code>'. $class .'</code> not exists';
+      // }
 
 
   }

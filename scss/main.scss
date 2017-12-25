@@ -1,0 +1,13 @@
+@import "components/resets";
+input {
+  line-height: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid #eee;
+  > :hover,
+  > :focus,
+  > :active {
+    box-shadow: 1px 2px 5px #bbb;
+    background: #e3e1e3l;
+  }
+}

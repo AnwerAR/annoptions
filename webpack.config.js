@@ -1,19 +1,14 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'dist/js');
-var APP_DIR = path.resolve(__dirname, 'src/js');
+var BUILD_DIR = path.resolve(__dirname, 'dist');
+var APP_DIR = path.resolve(__dirname, 'src');
 
-var config = {
-  entry: APP_DIR + '/index.js',
+let webpackConfig = {
+  entry: APP_DIR + '/js/index.js',
   output: {
     path: BUILD_DIR,
     filename: 'ann-options.js'
-  },
-
-  devServer: {
-     //inline: true,
-     port: 8080
   },
   externals: {
     jquery: 'jQuery'
@@ -28,7 +23,6 @@ var config = {
       }
     ]
   }
-
 };
 
-module.exports = config;
+module.exports = webpackConfig;

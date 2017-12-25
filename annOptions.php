@@ -54,6 +54,7 @@ define( 'AO_VERSION', '1.0.0' );
  **/
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'classes/ao_autoloader.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'includes/helpers.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ).'includes/demo.php';
 
 $ao_path = ao_initialize::paths();
@@ -75,8 +76,8 @@ define( 'AO_INC_URI', AO_URI.'includes' );
 
 
 // assets
-define( 'AO_ASSETS_DIR', AO_DIR.'assets' );
-define( 'AO_ASSETS_URI', AO_URI.'assets' );
+define( 'AO_ASSETS_DIR', AO_DIR.'dist' );
+define( 'AO_ASSETS_URI', AO_URI.'dist' );
 
 // CSS
 define( 'AO_CSS_DIR', AO_ASSETS_DIR.trailingslashit('/css') );
@@ -84,7 +85,7 @@ define( 'AO_CSS_URI', AO_ASSETS_URI.trailingslashit('/css') );
 
 // JS
 define( 'AO_JS_DIR', AO_ASSETS_DIR.trailingslashit('/js') );
-define( 'AO_JS_URI', AO_URI.trailingslashit('dist/js') );
+define( 'AO_JS_URI', AO_URI.trailingslashit('/js') );
 
 // Fonts
 define( 'AO_FONTS_DIR', AO_ASSETS_DIR.trailingslashit('/fonts') );
@@ -114,11 +115,9 @@ add_action( 'ao_options', function( $options ){
 
 
 function ao_admin_print_scripts() {
-  wp_register_style( 'select2', AO_CSS_URI.'select2.css', array(), '4.0.3' );
-  wp_register_style( 'ao-style', AO_CSS_URI.'style.css', array(), '1.0' );
 
-  wp_register_script( 'select2', AO_JS_URI.'select2.js', array('jquery-core'), '1.0', true );
-  wp_register_script( 'jquery-repeator', AO_JS_URI.'jquery.repeater.js', array('jquery-core'), '1.2.1', true );
+  wp_register_style( 'ao-style', AO_CSS_URI.'main.css', array(), '1.0' );
+
   wp_register_script( 'ao-options', AO_JS_URI.'ann-options.js', array('jquery-core'), '1.0', true );
 
   wp_enqueue_style( 'select2' );
