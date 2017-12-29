@@ -11,16 +11,3 @@ jQuery(document).ready( function() {
    repeater();
    ajax();
 });
-// require('./lib/select2.js');ssssshhjj
-// require('./lib/jquery.repeater.js');
-//
-// import select2 from './components/select2';
-// import annOptions_repeater from './compenents/repeater';
-// import ajaxSave from './compenents/ajax-save';
-//
-//
-// jQuery(document).ready( function() {
-//   select2();
-//   annOptions_repeater();
-//   ajaxSave();
-// });

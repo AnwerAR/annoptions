@@ -5,8 +5,8 @@ const select2 = jQuery(document).ready( function() {
     jQuery(".ao-multiselect").select2();
 
     function ao_select2() {
-      jQuery(".ao-repeator-select").select2();
-      jQuery(".ao-repeator-multiselect").select2();
+      jQuery(".ao-repeater-select").select2();
+      jQuery(".ao-repeater-multiselect").select2();
     }
 
 });

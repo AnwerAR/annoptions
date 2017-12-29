@@ -278,20 +278,20 @@ if ( null == $section  ) return;
 $field['section'] = $section;
 
 
-if ( 'repeator' != $field['type'] ) {
+if ( 'repeater' != $field['type'] ) {
 
   $this->fields[ $field['id'] ] = $this->validate_input_field( $field );
 }
 else {
-  $repeator_fields = $field['fields'];
+  $repeater_fields = $field['fields'];
   unset( $field['fields'] );
 
   $this->fields[ $field['id'] ] = $this->validate_input_field( $field );
-  foreach ( $repeator_fields as $repeator_key => $repeator ) {
-    $repeator['eclass'] .= ' ao-repeator-field';
-    $repeator['repeator'] = true;
+  foreach ( $repeater_fields as $repeater_key => $repeater ) {
+    $repeater['eclass'] .= ' ao-repeater-field';
+    $repeater['repeater'] = true;
 
-    $this->fields[ $field['id'] ]['fields'][ $repeator['id'] ] = $this->validate_input_field( $repeator );
+    $this->fields[ $field['id'] ]['fields'][ $repeater['id'] ] = $this->validate_input_field( $repeater );
   }
 }
 
@@ -325,8 +325,8 @@ private function validate_input_field( $input = array() ) {
   if ( in_array( $input['type'], $this->has_choice ) && null === $input['choices'] ) return;
 
   $input['eclass'] = explode( ' ', $input['eclass'] );
-  if ( array_key_exists( 'repeator', $input ) and $input['repeator'] == true ) {
-    $input['eclass'][] = 'ao-repeator-'.$input['type'];
+  if ( array_key_exists( 'repeater', $input ) and $input['repeater'] == true ) {
+    $input['eclass'][] = 'ao-repeater-'.$input['type'];
   }
   else {
     $input['eclass'][] = 'ao-'.$input['type'];

@@ -98,7 +98,7 @@ class AO_Admin_Registers {
        */
       if ( ! file_exists ( AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php' ) ) {
         echo "Input type template does not exists. Please create one<br>";
-        echo AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php';
+        echo '<code>' . AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php</code>';
       }
       else {
         ao_get_template_part( AO_DIR . 'templates/input-fields/type-' . $fields['type'] . '.php', $fields );
@@ -117,17 +117,13 @@ class AO_Admin_Registers {
   }
 
 
-  public function addMenuPage() { ?>
-    <div class="wrap">
-      <h2><?php echo isset( $this->pages[$_GET['page']]['page_title'] ) ? $this->pages[$_GET['page']]['page_title'] : ''; ?></h2>
-      <form method="post" action="options.php" class="aoptions-form">
-        <?php
-          settings_fields( 'ao_settings' );
-          do_settings_sections( $_GET['page'] );
-          submit_button();
-        ?>
-     </form>
-    </div>
-    <?php
+  public function addMenuPage() {
+    if ( ! file_exists ( AO_DIR . 'templates/page.php' ) ) {
+      echo "Page template does not exists. Please create one<br>";
+      echo '<code>' . AO_DIR . 'templates/page.php</code>';
+    }
+    else {
+      ao_get_template_part( AO_DIR . 'templates/page.php', $this->pages[$_GET['page']] );
+    }
   }
 }

@@ -85,7 +85,7 @@ define( 'AO_CSS_URI', AO_ASSETS_URI.trailingslashit('/css') );
 
 // JS
 define( 'AO_JS_DIR', AO_ASSETS_DIR.trailingslashit('/js') );
-define( 'AO_JS_URI', AO_URI.trailingslashit('/js') );
+define( 'AO_JS_URI', AO_ASSETS_URI.trailingslashit('/js') );
 
 // Fonts
 define( 'AO_FONTS_DIR', AO_ASSETS_DIR.trailingslashit('/fonts') );
@@ -124,6 +124,25 @@ function ao_admin_print_scripts() {
   wp_enqueue_style( 'ao-style' );
   wp_enqueue_script( 'ao-options' );
   //wp_enqueue_script( 'select2' );
-  //wp_enqueue_script( 'jquery-repeator' );
+  //wp_enqueue_script( 'jquery-repeater' );
 
 }
+
+
+require_once AO_DIR . 'classes/ao_settings.php';
+add_action( 'annframe_options', function( $pages ) {
+  $pages->addPage( 'appreance', array(
+      'ID'  => 'unqone',
+      'title' => 'Title One',
+      'other' =>  'other',
+  ));
+  $pages->addPage( 'appreance', array(
+      'ID'  => 'unqone',
+      'title' => 'Title One',
+      'other' =>  'other',
+  ));
+});
+add_action( 'init', function() {
+  global $pages;
+  print_r( ao_settings::run());
+});

@@ -94,6 +94,7 @@ gulp.task( 'style-min', ['style-expanded'], function() {
 
 gulp.task( 'watch', function() {
     gulp.watch( './scss/*.scss', ['style-min'] );
+		gulp.watch( './scss/**/*.scss', ['style-min'] );
     //gulp.watch( path.resolve(__dirname, 'src/js/*.js'), ['webpack'] );
     gulp.watch( path.resolve(__dirname, 'src/**/*.js'), ["webpack:build-dev"] );
 });

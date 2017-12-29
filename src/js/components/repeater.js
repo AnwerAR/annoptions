@@ -3,11 +3,11 @@ require('../lib/jquery.repeater.js');
 require('select2');
 
 function ao_select2() {
-  jQuery(".ao-repeator-select").select2();
-  jQuery(".ao-repeator-multiselect").select2();
+  jQuery(".ao-repeater-select").select2();
+  jQuery(".ao-repeater-multiselect").select2();
 }
 
-const repeater = jQuery('.ao-repeator-wrapper').repeater({
+const repeater = jQuery('.ao-repeater-wrapper').repeater({
     // (Optional)
     // start with an empty list of repeaters. Set your first (and only)
     // "data-repeater-item" with style="display:none;" and pass the

@@ -2,12 +2,12 @@
 /**
  * Input type checkbox output
  */
-class AO_Input_Type_repeator extends AO_Input_Types
+class AO_Input_Type_repeater extends AO_Input_Types
 {
 
   public function output() {
     //print_r($this->field);
-    echo "<div class='ao-repeator-wrapper'>";
+    echo "<div class='ao-repeater-wrapper'>";
     echo "<div class='{$this->classes}' data-repeater-list='{$this->getName( $this->field['id'] )}'>";
     echo "<div data-repeater-item>";
 
@@ -21,7 +21,7 @@ class AO_Input_Type_repeator extends AO_Input_Types
       		if ( class_exists( $class ) ) {
             $id = $field_value['id'];
             $field_value['is_rep_field'] = true;
-            $field_value['repeator_section'] = $this->field['id'];
+            $field_value['repeater_section'] = $this->field['id'];
             $field_value['default'] = 'some';
              //$avl = $this->field['id'][$field_value['id']];
              $avl = array(
@@ -41,7 +41,7 @@ class AO_Input_Type_repeator extends AO_Input_Types
     echo "</div>";
     echo "<input data-repeater-create type='button' value='Add'/>";
 
-    echo "</div><div class='ao-repeator-wrapper2'></div>";
+    echo "</div><div class='ao-repeater-wrapper2'></div>";
 
 
     //return $output;

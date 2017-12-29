@@ -2,14 +2,14 @@
 /**
  * Input type checkbox output
  */
-class AO_Input_Type_repeator extends AO_Input_Types
+class AO_Input_Type_repeater extends AO_Input_Types
 {
 
 public function output() {
 
 
 //print_r($this->field);
-echo "<div class='ao-repeator-wrapper'>";
+echo "<div class='ao-repeater-wrapper'>";
 
 
 $repeater_values = (array) $this->getValue( $this->field['id'] );

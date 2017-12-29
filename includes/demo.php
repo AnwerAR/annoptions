@@ -139,10 +139,10 @@ $options->addFields(
       'default'     =>  __( 'Lorem ipsum dolor sit amet.' ),
     ),
     array(
-      'id'          => 'ao-repeator',
-      'title'       => 'AO Repeator',
-      'type'        => 'repeator',
-      'eclass'      => 'text-repeator',
+      'id'          => 'ao-repeater',
+      'title'       => 'AO repeater',
+      'type'        => 'repeater',
+      'eclass'      => 'text-repeater',
       'fields'      => array(
         array(
           'id'          => 'ao-admin-mail',

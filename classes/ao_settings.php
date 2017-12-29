@@ -3,6 +3,7 @@
  * This Class is responsible to set
  */
 defined( 'AO_VERSION' ) or die( 'Oh! No script kiddies please.' );
+require_once AO_DIR . 'classes/ao-class-page-manager.php';
 
 class ao_settings  {
 
@@ -10,12 +11,13 @@ private static $_instance = null;
 
 public  $options;
 private $page;
+public $pagess = array();
 private $sections;
 private $fields;
 public  $errors;
 public  $input_types;
 public  $page_types;
-public  $repeators = array();
+public  $repeaters = array();
 public $has_choice = array( 'select', 'multiselect', 'radio', 'checkbox' );
 
 private function __construct() {
@@ -38,23 +40,36 @@ public function addPages() {}
 public function addSections() {}
 public function addFields() {}
 
-public function addPage() {}
+public function addPage( $context = array(), $args ) {
+    require_once AO_DIR . 'classes/ao-class-page-manager.php';
+    if( '$args['ID']' instanceof AO_Page_Manager ) {
+        $args['other'] = 'already added page';
+        $args['ID'] = $args['ID'] . 'some';
+    }
+    // else {
+        $page = new AO_Page_Manager( $this, $context, $args );
+    // }
+
+    $this->pagess[ $page->ID ] = $page;
+    return $page;
+}
+
 public function addSection() {}
 
 public function addField( $section= null, $field = array() ) {
   //if ( null === $section ) return;
 
-  if ( 'repeator' != $field['type'] ) {
+  if ( 'repeater' != $field['type'] ) {
     $this->fields[ $field['id'] ] = $this->validate_input_field( $field );
   }
   else {
-    $repeator_fields = $field['fields'];
+    $repeater_fields = $field['fields'];
     unset( $field['fields'] );
     $this->fields[ $field['id']['so'] ] = $this->validate_input_field( $field );
 
     $id = $field['id'];
-    foreach ( $repeator_fields as $repeator_key => $repeator ) {
-      $this->fields[ $id ]['fields'][] = $this->validate_input_field( $repeator );
+    foreach ( $repeater_fields as $repeater_key => $repeater ) {
+      $this->fields[ $id ]['fields'][] = $this->validate_input_field( $repeater );
     }
   }
 }
@@ -109,9 +124,9 @@ public function removeField() {}
 private function input_field_classes( $field ) {}
 
 public function input_types() {
- $input_types = array(
-    'text' => array( 'type => 'text', 'class' => 'form-control' )
- );
- $this->input_types = apply_filters( 'annframe_input_types', $input_types );
+ // $input_types = array(
+ //    'text' => array( 'type => 'text', 'classs' => 'form-control' )
+ // );
+ // $this->input_types = apply_filters( 'annframe_input_types', $input_types );
 }
 } // END of Class.

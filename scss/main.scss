@@ -1,4 +1,12 @@
+/*!
+ * @package annoptions
+ * @version 1.0.0
+ * Demo desc
+ */
 @import "components/resets";
+@import "components/select2";
+@import "components/page";
+
 input {
   line-height: 36px;
   height: 36px;
@@ -8,6 +16,18 @@ input {
   > :focus,
   > :active {
     box-shadow: 1px 2px 5px #bbb;
-    background: #e3e1e3l;
+    background: #e3e1e1;
+  }
+}
+
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
   }
 }

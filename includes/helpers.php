@@ -18,7 +18,7 @@ function ao_get_template_part( $file, $template_args = array(), $cache_args = ar
         }
     }
     $file_handle = $file;
-    do_action( 'start_operation', 'hm_template_part::' . $file_handle );
+
     if ( file_exists( get_stylesheet_directory() . '/' . $file . '.php' ) )
         $file = get_stylesheet_directory() . '/' . $file . '.php';
     elseif ( file_exists( get_template_directory() . '/' . $file . '.php' ) )
@@ -26,7 +26,7 @@ function ao_get_template_part( $file, $template_args = array(), $cache_args = ar
     ob_start();
     $return = require( $file );
     $data = ob_get_clean();
-    do_action( 'end_operation', 'hm_template_part::' . $file_handle );
+    
     if ( $cache_args ) {
         wp_cache_set( $file, $data, serialize( $cache_args ), 3600 );
     }
