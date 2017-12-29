@@ -5,7 +5,7 @@ A flexible plugin to create WordPress admin panels on the go.
 ```
 add_action ( 'ao_options', function ( $options ) {
 
-  $options->setPage(
+  $options->addPage(
     'page_title' => __( 'Page Title' ),
     'menu_title' => __( 'Page Title' ),
     '....'       => '...'
