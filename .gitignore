@@ -6,4 +6,4 @@ dist
 assets
 *.zip
 /scss/components/page.scss
-/scss/components/select2.scss
+new-classes

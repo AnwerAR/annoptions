@@ -1,27 +1,24 @@
 <?php
 /**
- * @param $field
+ * @var $args array
  *
  */
-//extract( $fields );
-// @TODO more enhancement and simplicity needed here for end users to extend these templates in their own themes/plugins.
-$field = $template_args;
-$name = AO_Input_Types::fieldName( $field['id'] );
-$value = AO_Input_Types::fieldValue( $field['id'], $field['default'] );
+$name = AO_Input_Types::fieldName( $args['id'] );
+$value = AO_Input_Types::fieldValue( $args['id'], $args['default'] );
 
 ?>
-<div class="annoptions-fields type__<?php echo $field['type'] . '-wrapper '; ?>">
-  <?php if ( $field['label'] != '' ): ?>
-    <label for="<?php echo $field['id']; ?>">
-      <?php _e( $field['label'], 'annoptions' ); ?>
+<div class="annoptions-fields type__<?php echo $args['type'] . '-wrapper '; ?>">
+  <?php if ( $args['label'] != '' ): ?>
+    <label for="<?php echo $args['id']; ?>">
+      <?php _e( $args['label'], 'annoptions' ); ?>
     </label>
   <?php endif; ?>
   <input
-    id="<?php echo $field['id']; ?>"
-    type="<?php echo $field['type']; ?>"
+    id="<?php echo $args['id']; ?>"
+    type="<?php echo $args['type']; ?>"
     name="<?php echo $name; ?>"
     value="<?php echo $value; ?>"
-    placeholder="<?php echo $field['placeholder']; ?>"
-    class="<?php echo $field['elass']; ?>"
+    placeholder="<?php echo $args['placeholder']; ?>"
+    class="<?php echo $args['elass']; ?>"
     >
 </div>
