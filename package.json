@@ -4,11 +4,12 @@
   "description": "\u0016A flexible plugin to create WordPress admin panels on the go.",
   "main": "annOptions.php",
   "scripts": {
-    "dev:gulp": "gulp",
-    "dev:webpack": "webpack -d --watch",
-    "webpack-build": "webpack -p",
-    "dev": "parallelshell 'npm run dev:gulp' 'npm run dev:webpack'",
-    "build": "parallelshell 'npm run webpack-build' 'npm run gulp'"
+    "watch:sass": "gulp watch:sass",
+    "watch:webpack": "gulp watch:webpack",
+    "watch": "gulp watch",
+    "build:sass": "gulp build:sass",
+    "build:webpack": "gulp build:webpack",
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "clean-css": "^4.1.9",
+    "compression-webpack-plugin": "^1.1.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-clean-css": "^3.9.0",
@@ -43,9 +45,7 @@
     "gulp-util": "^3.0.8",
     "jquery": "^3.2.1",
     "node-sass": "^4.7.2",
-    "parallelshell": "^3.0.2",
     "select2": "^4.0.6-rc.1",
-    "webpack": "^3.10.0",
-    "webpack-stream": "^4.0.0"
+    "webpack": "^3.10.0"
   }
 }

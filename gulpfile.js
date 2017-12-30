@@ -9,29 +9,17 @@ const notifier      = require( 'gulp-plumber-notifier' );
 const path          = require('path');
 
 const gutil    = require("gulp-util");
-const sassSrc  = './scss/main.scss';
+const sassSrc  = './src/scss/main.scss';
 const distCSS  = path.resolve(__dirname, 'dist/css/');
 
 const webpack = require('webpack');
-const webpackConfig = require("./webpack.config.js");
-//import {webpackConfig} from './webpack.config';
+const webpackConfig = require("./webpack.dev.js");
+const webpackProdConfig = require("./webpack.prod.js");
+
 
 gulp.task("webpack:build", function(callback) {
-	// modify some webpack config options
-	var myConfig = Object.create(webpackConfig);
-	myConfig.plugins = myConfig.plugins.concat(
-		new webpack.DefinePlugin({
-			"process.env": {
-				// This has effect on the react lib size
-				"NODE_ENV": JSON.stringify("production")
-			}
-		}),
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin()
-	);
-
-	// run webpack
-	webpack(myConfig, function(err, stats) {
+	var Config = Object.create(webpackProdConfig);
+	webpack(Config, function(err, stats) {
 		if(err) throw new gutil.PluginError("webpack:build", err);
 		gutil.log("[webpack:build]", stats.toString({
 			colors: true
@@ -41,36 +29,29 @@ gulp.task("webpack:build", function(callback) {
 });
 
 
-// modify some webpack config options
-var myDevConfig = Object.create(webpackConfig);
-myDevConfig.devtool = "sourcemap";
-//myDevConfig.debug = true;
+var DevConfig = Object.create(webpackConfig);
+DevConfig.devtool = "sourcemap";
+var devCompiler = webpack(DevConfig);
 
-// create a single instance of the compiler to allow caching
-var devCompiler = webpack(myDevConfig);
-
-gulp.task("webpack:build-dev", function(callback) {
-	// run webpack
+gulp.task("webpack:dev", function(callback) {
 	devCompiler.run(function(err, stats) {
-		if(err) throw new gutil.PluginError("webpack:build-dev", err);
-		gutil.log("[webpack:build-dev]", stats.toString({
+		if(err) throw new gutil.PluginError("webpack:dev", err);
+		gutil.log("[webpack:dev]", stats.toString({
 			colors: true
 		}));
 		callback();
 	});
 });
 
-gulp.task('style-expanded', function(callback) {
+gulp.task('sass:dev', function(callback) {
   gulp.src( sassSrc )
     .pipe(sourcemaps.init())
     .pipe( sass( { outputStyle: 'expanded' } ) )
     .pipe( plumber() )
     .pipe( notifier() )
     .pipe( cleanCSS ( { format: 'beautify' } ) )
-
     //.pipe( autoPrefixer( 'last 4 versions', 'safari 5', 'ie 8', 'ie 9', 'ie 10', 'opera 12.1', 'ios 6', 'android 4' ) )
     .pipe( autoPrefixer( {browsers: 'last 4 versions', flexbox: 'no-2009' } ) )
-
     .pipe(rename({extname: '.css' /*suffix:*/ }))
     .pipe(sourcemaps.write( distCSS + 'maps'))
     .pipe(gulp.dest( distCSS ))
@@ -78,12 +59,11 @@ gulp.task('style-expanded', function(callback) {
 });
 
 
-gulp.task( 'style-min', ['style-expanded'], function() {
+gulp.task( 'sass:build', ['sass:dev'], function() {
     gulp.src( sassSrc )
     .pipe( sass({outputStyle: 'expanded'}) )
     .pipe( plumber() )
     .pipe( notifier() )
-
     .pipe(cleanCSS({
         level: { 2: { restructureRules: true, mergeSemantically: true } },
     }))
@@ -92,14 +72,17 @@ gulp.task( 'style-min', ['style-expanded'], function() {
 });
 
 
-gulp.task( 'watch', function() {
-    gulp.watch( './scss/*.scss', ['style-min'] );
-		gulp.watch( './scss/**/*.scss', ['style-min'] );
-    //gulp.watch( path.resolve(__dirname, 'src/js/*.js'), ['webpack'] );
-    gulp.watch( path.resolve(__dirname, 'src/**/*.js'), ["webpack:build-dev"] );
+gulp.task( 'watch:sass', function() {
+    gulp.watch( path.resolve(__dirname, './src/scss/*.scss'), ['sass:dev'] );
+		gulp.watch( path.resolve(__dirname, './src/scss/**/*.scss'), ['sass:dev'] );
 });
+gulp.task( 'watch:webpack', function() {
+    gulp.watch( path.resolve(__dirname, 'src/**/*.js'), ["webpack:dev"] );
+});
+gulp.task( 'watch', ['watch:webpack', 'watch:sass'] );
 
-gulp.task("webpack-build", ["webpack:build"]);
-gulp.task("webpack-dev", ["webpack:build-dev"]);
+gulp.task("build:sass", ["sass:build"]);
+gulp.task("build:webpack", ["webpack:build"]);
+gulp.task("build", [ "build:sass", "build:webpack" ]);
+
 gulp.task( 'default', ['watch'] );
-gulp.task( 'build', ['style-min', 'webpack-build'] );

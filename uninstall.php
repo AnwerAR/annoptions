@@ -12,4 +12,3 @@ defined( 'ABSPATH' ) or die( 'Oh! No script kiddies please.' );
 
 
 // Uninstaller actions will be defined here.
-// Added from localserver
