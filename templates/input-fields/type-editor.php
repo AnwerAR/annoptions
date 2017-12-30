@@ -1,17 +1,20 @@
 <?php
-$field = $template_args;
-$content = AO_Input_Types::fieldValue( $field['id'], $field['default'] );
-$editor_id = $field['id'];
+/**
+ * @var $args array
+ *
+ */
+$content = AO_Input_Types::fieldValue( $args['id'], $args['default'] );
+$editor_id = $args['id'];
 
 $settings = array(
   'wpautop' => true,
   'media_buttons' => false,
-  'textarea_name' => AO_Input_Types::fieldName( $field['id'] ),
+  'textarea_name' => AO_Input_Types::fieldName( $args['id'] ),
   'textarea_rows' => 5,
   'editor_height' => '',
   'tabindex'      => '',
   'editor_css'    => '',
-  'editor_class'  => implode( $field['eclass'], ' ' ),
+  'editor_class'  => implode( $args['eclass'], ' ' ),
   'teeny'         => false,
   'dfw'           => false,
   'tinymce'       => true,
