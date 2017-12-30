@@ -5,6 +5,12 @@
 defined( 'AO_VERSION' ) or die( 'Oh! No script kiddies please.' );
 require_once AO_DIR . 'classes/ao-class-page-manager.php';
 
+/**
+ *
+ * Class ao_settings description
+ *
+ * @author Anwer AR
+ */
 class ao_settings {
 
 	private static $_instance = null;
