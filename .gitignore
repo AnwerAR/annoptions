@@ -6,4 +6,3 @@ dist
 assets
 *.zip
 /scss/components/page.scss
-new-classes
