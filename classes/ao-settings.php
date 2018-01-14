@@ -50,15 +50,16 @@ class ao_settings {
 	public function addFields() {
 	}
 	public function addPage( $context = array(), $args ) {
-		include_once AO_DIR . 'classes/ao-class-page-manager.php';
-		if ( $this->pagess[ $args['ID'] ] instanceof AO_Page_Manager ) {
-			$args['other'] = 'already added page';
-			$args['ID']    = $args['ID'] . 'some';
+
+		include_once AO_DIR . 'new-classes/ao-page-settings.php';
+		if ( $this->pagess[ $args['slug'] ] instanceof AO_Page_Settings ) {
+			//$args['slug']    = $args['slug'] . 'some';
+			return;
 		}
 		// else {
-		$page = new AO_Page_Manager( $this, $context, $args );
+		$page = new AO_Page_Settings( $this, $args );
 		// }
-		$this->pagess[ $page->ID ] = $page;
+		$this->pagess[ $page->slug ] = $page;
 		return $page;
 	}
 
@@ -115,27 +116,5 @@ class ao_settings {
 		$output = $input;
 		return $output;
 	}
-	public function setPage() {
-	}
-	public function setSection() {
-	}
-	public function setField() {
-	}
 
-	public function removePage() {
-	}
-	public function removeSection() {
-	}
-	public function removeField() {
-	}
-
-	private function input_field_classes( $field ) {
-	}
-
-	public function input_types() {
-		// $input_types = array(
-		// 'text' => array( 'type => 'text', 'classs' => 'form-control' )
-		// );
-		// $this->input_types = apply_filters( 'annframe_input_types', $input_types );
-	}
 } // END of Class.

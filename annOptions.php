@@ -111,22 +111,59 @@ function ao_admin_print_scripts() {
 // @Temp for testing feature changings in AO_API
 // Supposed to remove
 require_once AO_DIR . 'classes/ao-settings.php';
+$default_args = array(
+	'page_title'  => 'Page One',
+	'menu_title'  => 'Page One',
+	'slug'		=> 'page-one',
+	'cap'         => 'edit_themes',
+	'type'        => 'menu',
+	'parent'      => '',
+	'icon'        => 'dashboard-settings',
+	'position'    => 15,
+	'description' => 'Lorem ipsum dolor sit amet',
+	'sections'    => array(),
+);
 add_action(
 	'annframe_options', function ( $pages ) {
 		$pages->addPage(
 			'appreance', array(
-				'ID'    => 'unqone',
-				'title' => 'Title One',
-				'other' => 'other',
-			)
-		);
+				'page_title'  => 'Page One',
+				'menu_title'  => 'Page One',
+				'slug'		=> 'page-one',
+				'cap'         => 'edit_themes',
+				'type'        => 'menu',
+				'parent'      => '',
+				'icon'        => 'dashboard-settings',
+				'position'    => 15,
+				'description' => 'Lorem ipsum dolor sit amet',
+				'sections'    => array(),
+		));
 		$pages->addPage(
 			'appreance', array(
-				'ID'    => 'unqone',
-				'title' => 'Title One',
-				'other' => 'other',
-			)
-		);
+				'page_title'  => 'Page One',
+				'menu_title'  => 'Page One',
+				'slug'		=> 'page-one',
+				'cap'         => 'edit_themes',
+				'type'        => 'menu',
+				'parent'      => '',
+				'icon'        => 'dashboard-settings',
+				'position'    => 15,
+				'description' => 'Lorem ipsum dolor sit amet',
+				'sections'    => array(),
+		));
+		$pages->addPage(
+			'appreance', array(
+				'page_title'  => 'Page One',
+				'menu_title'  => 'Page One',
+				'slug'		=> 'page-one',
+				'cap'         => 'edit_themes',
+				'type'        => 'menu',
+				'parent'      => '',
+				'icon'        => 'dashboard-settings',
+				'position'    => 15,
+				'description' => 'Lorem ipsum dolor sit amet',
+				'sections'    => array(),
+		));
 	}
 );
 
