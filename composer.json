@@ -1,0 +1,17 @@
+{
+    "name": "anwerar/ann-options",
+    "description": "Simple yet powerfull framework for adding custom option pages on the go.",
+    "type": "library",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Anwer AR",
+            "email": "aranwer104@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^6",
+        "phpdocumentor/phpdocumentor": "2.*"
+    }
+}

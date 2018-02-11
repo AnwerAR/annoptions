@@ -4,7 +4,7 @@
  */
 defined( 'AO_VERSION' ) or die( 'Oh! No script kiddies please.' );
 
-class ao_api {
+class AO_Manager {
 	/**
 	 * Simply Singleton ( ~_~ )
 	 *
@@ -67,6 +67,7 @@ class ao_api {
 		// Access this class.
 		do_action( 'ao_options', $this );
 
+
 	}
 
 	/**
@@ -77,7 +78,7 @@ class ao_api {
 	 **/
 	public static function run() {
 		if ( null === self::$_instance ) {
-			self::$_instance = new ao_api();
+			self::$_instance = new AO_Manager();
 		}
 		return self::$_instance;
 	}
@@ -88,8 +89,9 @@ class ao_api {
 	 * @package annOptions
 	 * @since 1.0.0
 	 **/
-	public function getPages() {
-		return $this->page;
+	public function getPages( $page = null) {
+		return ( null !== $page ) ? $this->page[ $page ] : $this->page;
+		//return $this->page;
 	}
 
 	/**
@@ -181,65 +183,108 @@ class ao_api {
 	 * @package annOptions
 	 * @since 1.0.0
 	 **/
-	public function addPage( $page = array() ) {
+	// public function addPagess( $page = array() ) {
+    //
+	// 	$defaults = array(
+	// 		'page_title' => null,
+	// 		'menu_title' => '',
+	// 		'cap'        => 'manage_options',
+	// 		'slug'       => null,
+	// 		'type'       => 'menu',
+	// 		'parent'     => null,
+	// 		'icon'       => 'dashicons-admin-generic',
+	// 		'position'   => null,
+	// 		'desc'       => '',
+	// 		'sections'   => null,
+	// 	);
+	// 	$page     = wp_parse_args( $page, $defaults );
+	// 	$page     = apply_filters( 'annframe_get_page_args', $page );
+    //
+	// 	if ( null == $page['page_title'] || null == $page['slug'] ) {
+	// 		return;
+	// 	}
+    //
+	// 	// If someone tries to override an existing page.
+	// 	if ( isset( $this->page[ $page['slug'] ] ) ) {
+    //
+	// 		// Note: Due to some minor issues this feature is not added in current version.
+	// 		// Hope to see this in future releases.
+	// 		// $this->errors[$page['slug']] = __( 'already exists' );
+	// 		// then deny.
+	// 		return;
+	// 	}
+	// 	if ( '' == $page['menu_title'] ) {
+	// 		$page['menu_title'] = apply_filters( 'ann_options_page_title', $page['page_title'] );
+	// 	}
+	// 	$page['page_title'] = apply_filters( 'ann_options_page_title', $page['page_title'] );
+    //
+	// 	// If not set the default type is "menu".
+	// 	$allowed_types = array( 'menu', 'submenu', 'dashboard' );
+	// 	if ( ! in_array( $page['type'], $allowed_types ) ) {
+	// 		$page['type'] = 'menu';
+	// 	}
+    //
+	// 	switch ( ao_initialize::mode() ) {
+	// 		case '_PLUGIN_':
+	// 			$parent = 'themes.php';
+	// 			break;
+	// 		default:
+	// 			$parent = 'settings.php';
+	// 			break;
+	// 	}
+    //
+	// 	if ( $page['type'] == 'submenu' && null === $page['parent'] ) {
+	// 		$page['parent'] = $parent;
+	// 	}
+    //
+	// 	if ( array_key_exists( 'sections', $page ) ) {
+	// 		$this->addSections( $page['slug'], $page['sections'] );
+	// 		unset( $page['sections'] );
+	// 	}
+    //
+	// 	$this->page[ $page['slug'] ] = $page;
+	// }
 
-		$defaults = array(
-			'page_title' => null,
-			'menu_title' => '',
-			'cap'        => 'manage_options',
-			'slug'       => null,
-			'type'       => 'menu',
-			'parent'     => null,
-			'icon'       => 'dashicons-admin-generic',
-			'position'   => null,
-			'desc'       => '',
-			'sections'   => null,
-		);
-		$page     = wp_parse_args( $page, $defaults );
-		$page     = apply_filters( 'annframe_get_page_args', $page );
+	public function addPage( $args, $context = array() ) {
+		/**
+		 * This Class is out of autoloader for now. eventually we will wrap it in autoloader.
+		 */
+		require_once AO_DIR . 'classes/ao-page-manager.php';
 
-		if ( null == $page['page_title'] || null == $page['slug'] ) {
-			return;
+		// We are not even bothering to throw message for missing slug. (~_~)
+		if ( ! isset( $args['slug'] ) ) return;
+
+
+
+		/**
+		 * Filter page array before proceeding validation.
+		 *
+		 * @since 1.0.0
+		 */
+		$page = apply_filters( 'ao_'. $args['slug'] .'_page_before', new AO_Page_Manager( $args ) );
+
+
+
+		if ( $this->page[$page->slug] instanceof AO_Page_Manager ) {
+			$this->page['errors'][ $page->slug ] = ao_add_error( 'duplicate_page', 'Page with same slug is already defined. Consider removing duplicate entries.' );
+		}
+		else {
+			/**
+			 * Filter page object after proceeding validation.
+			 *
+			 * @since 1.0.0
+			 */
+			$this->page[$page->slug] = apply_filters( 'ao_'. $page->slug .'_page_after', $page );
 		}
 
-		// If someone tries to override an existing page.
-		if ( isset( $this->page[ $page['slug'] ] ) ) {
+			if ( array_key_exists( 'sections', $page ) ) {
+				$this->addSections( $page['slug'], $page['sections'] );
+				unset( $page['sections'] );
+			}
 
-			// Note: Due to some minor issues this feature is not added in current version.
-			// Hope to see this in future releases.
-			// $this->errors[$page['slug']] = __( 'already exists' );
-			// then deny.
-			return;
+		if ( array_key_exists( 'panels', $args ) ) {
+			$this->addPanels( $args['slug'], $args['panels'] );
 		}
-		if ( '' == $page['menu_title'] ) {
-			$page['menu_title'] = $page['page_title'];
-		}
-
-		// If not set the default type is "menu".
-		$allowed_types = array( 'menu', 'submenu', 'dashboard' );
-		if ( ! in_array( $page['type'], $allowed_types ) ) {
-			$page['type'] = 'menu';
-		}
-
-		switch ( ao_initialize::mode() ) {
-			case '_PLUGIN_':
-				$parent = 'themes.php';
-				break;
-			default:
-				$parent = 'settings.php';
-				break;
-		}
-
-		if ( $page['type'] == 'submenu' && null === $page['parent'] ) {
-			$page['parent'] = $parent;
-		}
-
-		if ( array_key_exists( 'sections', $page ) ) {
-			$this->addSections( $page['slug'], $page['sections'] );
-			unset( $page['sections'] );
-		}
-
-		$this->page[ $page['slug'] ] = $page;
 	}
 
 	/**
@@ -346,6 +391,44 @@ class ao_api {
 		}
 
 		return $output = $input;
+	}
+
+	public function addPanels( $page_slug, $args )  {
+		foreach ( $args as $panel ) {
+			$this->addPanel( $page_slug, $panel );
+		}
+	}
+
+	public function addPanel( $page_slug, $args )  {
+
+		if ( ao_is_null( $page_slug ) || ! is_array( $args ) ) return;
+
+
+		$panel = new AO_Panel( $args, 'panel', $page_slug );
+		if ( $this->panels[$panel->slug] instanceof AO_Panel ) {
+			$this->panels['errors'][ $panel->slug ]= ao_add_error( 'panel_exisis', 'Panel Alrady Exists.' );
+
+			if(
+				is_array( (array) $this->page[ $page_slug ]->panels ) &&
+				! in_array( $panel->slug,  $this->page[ $page_slug ]->panels, true )
+			) {
+				$this->page[ $page_slug ]->panels[] = $panel->slug;
+			}
+		}
+		else {
+			$this->panels[ $panel->slug ] = $panel; // apply_filters( 'ao_panel_init_' . $panel->slug, $panel );
+			if( is_array( (array) $this->page[ $page_slug ]->panels ) && ! in_array( $panel->slug,  $this->page[ $page_slug ]->panels, true ) ) {
+				$this->page[ $page_slug ]->panels[] = $panel->slug;
+			}
+
+		}
+	}
+
+	public function getPanels( $page_slug = null ) {
+		if ( $page_slug ) {
+			return $this->page[ $page_slug ]->panels;
+		}
+		return $this->page->panels;
 	}
 
 } // END OF CLASS

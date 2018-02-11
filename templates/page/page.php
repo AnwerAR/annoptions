@@ -3,7 +3,10 @@
  * Display Page in Admin side.
  */
 extract( $args ) ?>
-<?php include( 'page/tabs.php' ) ?>
+<h2 class="nav-tab-wrapper">
+    <a href="" class="nav-tab">Display Options</a>
+    <a href="" class="nav-tab">Social Options</a>
+</h2>
 <div class="wrap">
   <div id="<?php echo $slug . '-page'; ?>" class="annoptions_page <?php echo $slug . '-page'; ?>">
 	<!-- Page title section -->
@@ -29,7 +32,7 @@ extract( $args ) ?>
 		</ul>
 	  </div>
 	  <pre>
-	  	<?php print_r( ann_options()->page()->getPages( $_GET['page'] ) ); ?>
+	  	<?php print_r( ann_options()->pages()->getPages() ); ?>
 	  </pre>
 	  <!-- End of menu wrapper -->
 
