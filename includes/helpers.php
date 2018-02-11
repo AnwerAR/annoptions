@@ -12,13 +12,13 @@
  *
  * @since 1.0.0
  *
- * @param string $slug to search.
+ * @param string $key to search.
  * @param array  $args where search performs.
  * @return bool    true | false.
  */
-function ao_is_not_array_key( $slug, $args ) {
+function ao_is_not_array_key( $key, $args ) {
 
-	if ( ! array_key_exists( $slug, $args ) ) {
+	if ( ! array_key_exists( $key, $args ) ) {
 		return false;
 	}
 	return true;
@@ -34,10 +34,9 @@ function ao_is_not_array_key( $slug, $args ) {
  */
 function ao_is_null( $input ) {
 	if ( $input == '' || $input == null || $input == false ) {
-		return false;
+		return true;
 	}
-
-	return true;
+	return false;
 }
 
 /**
@@ -101,3 +100,21 @@ function ao_html_unqid( $string, $prefix = '', $suffix = '' ) {
 	$prefix = ( '' == $prefix ) ? '' : $prefix . '-';
 	return $prefix . substr( md5( $string ), 0, 12 ). $suffix;
 }
+
+
+/**
+ * Add Error
+ *
+ * A wrapper function around WP_Error object.
+ *
+ * @package annOptions
+ * @since 1.0.0
+ *
+ * @param string $code Error Code
+ * @param string $message Error Message
+ * @return object WP_Error Returns Error Object.
+ */
+ function ao_add_error( $code, $message ) {
+	 //return $message;
+ 	return new WP_Error( $code, sprintf( esc_html__( '%1$s', 'annoptions' ), $message ) );
+ }

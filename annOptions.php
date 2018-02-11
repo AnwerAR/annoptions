@@ -114,7 +114,6 @@ if ( ! class_exists( 'annOptions' ) ) {
 		public function __construct() {
 			$this->constants();
 			$this->requires();
-
 		}
 
 		 /**
@@ -212,7 +211,8 @@ if ( ! class_exists( 'annOptions' ) ) {
 			 * Helper functions
 			 */
 			require_once AO_ABSPATH . 'includes/helpers.php';
- 			require_once AO_ABSPATH . 'includes/demo.php';
+ 			//require_once AO_ABSPATH . 'includes/demo.php';
+			require __DIR__ . '/includes/filters.php';
 		}
 
 		/**
@@ -272,21 +272,18 @@ if ( ! class_exists( 'annOptions' ) ) {
 			wp_register_style( 'ao-style', AO_CSS_URI . 'main.css', array(), '1.0' );
 			wp_register_script( 'ao-options', AO_JS_URI . 'ann-options.js', array( 'jquery-core' ), '1.0', true );
 
-			wp_enqueue_style( 'ao-style' );
-			wp_enqueue_script( 'ao-options' );
+			//wp_enqueue_style( 'ao-style' );
+			//wp_enqueue_script( 'ao-options' );
 		}
 
-		public function pages()  {
-			//print '<h1>Hello Page</h1>';
-			return ao_api::run();
+		public static function page()  {
+			return AO_Manager::run();
 		}
+
+
 	}
-} else {
-	/**
-	 * @todo Get the details of initialized instance to decide which one to use.
-	* helpful if script is loading from multiple locations theme || plugin
-	 */
 }
+
 
 
 /**
@@ -297,58 +294,16 @@ if ( ! class_exists( 'annOptions' ) ) {
  *
  * @return annOptions
  */
-function ann_options() {
-	return annOptions::init();
+function ann_options( $object = null ) {
+	$options = annOptions::init();
+	if ( 'page' === $object ) {
+		return $options::page();
+	}
+	return $options;
 }
-
+$ann_opt = ann_options();
 
 /**
- * Using for testing only
- * Used to test while development but eventually will be removed or modified.
- *
- * Register page.
+ * Demo Data used for development.
  */
-ann_options()->pages()->addPage(
-	array(
-		'page_title' => 'annOptions',
-		'menu_title' => 'annOptions',
-		'cap'        => 'manage_options',
-		'slug'       => 'annoptions',
-		'type'       => 'menu',
-		'parent'     => null,
-		'icon'       => 'dashicons-admin-generic',
-		'position'   => null,
-		'desc'       => 'Lorem Ipsum',
-		//'sections'   => null,
-	)
-);
-
-/**
- * Using for testing only.
- *
- * Register page if page array is not null.
- */
-$setPage = new AO_Admin_Registers();
-if ( null != ann_options()->pages()->getPages() ) {
-	$setPage->pageInit( ann_options()->pages()->getPages() );
-	add_action( 'admin_enqueue_scripts', array( ann_options(), 'admin_scripts' ) );
-}
-
-// add_action( 'init', array( 'ao_api', 'run' ), 5 );
-// add_action(
-// 	'ao_options', function ( $options ) {
-// 		$setPage = new AO_Admin_Registers();
-// 		if ( null != $options->getPages() ) {
-// 			$setPage->pageInit( $options->getPages() );
-// 			add_action( 'admin_enqueue_scripts', 'ao_admin_print_scripts' );
-// 		}
-//
-// 		if ( null != $options->getSections() ) {
-// 			$setPage->sectionInit( $options->getSections() );
-// 		}
-//
-// 		if ( null != $options->getFields() ) {
-// 			$setPage->fieldInit( $options->getFields() );
-// 		}
-// 	}
-// );
+require_once( AO_INC_DIR . '/demo2.php' );

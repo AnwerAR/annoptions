@@ -10,7 +10,7 @@ class AO_Admin_Registers {
 		add_action( 'admin_init', array( $this, 'registerSettings' ) );
 	}
 	public function registerSettings() {
-		register_setting( 'ao_settings', 'ao_options' );
+		register_setting( 'AO_Manager', 'ao_options' );
 	}
 	public function pageInit( $pages = null ) {
 		if ( null === $pages ) {
@@ -18,33 +18,53 @@ class AO_Admin_Registers {
 		}
 		$this->pages = $pages;
 		add_action( 'admin_menu', array( $this, 'registerMenuPage' ) );
+
+		//print_r( $this->pages );
 	}
 	public function registerMenuPage() {
 		foreach ( $this->pages as $page_key => $page ) {
-			switch ( $page['type'] ) {
-				case 'submenu':
-					add_submenu_page(
-						$page['parent'],
-						$page['page_title'],
-						$page['menu_title'],
-						$page['cap'],
-						$page['slug'],
-						array( $this, 'addMenuPage' )
-					);
-					break;
-
-				default:
-					add_menu_page(
-						$page['page_title'],
-						$page['menu_title'],
-						$page['cap'],
-						$page['slug'],
-						array( $this, 'addMenuPage' ),
-						$page['icon'],
-						$page['position']
-					);
-					break;
-			}
+			add_menu_page(
+				$page->page_title,
+				$page->menu_title,
+				$page->capability,
+				$page->slug,
+				array( $this, 'addMenuPage' ),
+				$page->icon,
+				$page->position
+			);
+			// switch ( $page->type ) {
+			// 	case 'submenu':
+			// 		// add_submenu_page(
+			// 		// 	$page->parent,
+			// 		// 	$page->page_title,
+			// 		// 	$page->menu_title,
+			// 		// 	$page->capablity,
+			// 		// 	$page->slug,
+			// 		// 	array( $this, 'addMenuPage' )
+			// 		// );
+			// 		break;
+            //
+			// 	default:
+			// 		// add_menu_page(
+			// 		// 	$page['page_title'],
+			// 		// 	$page['menu_title'],
+			// 		// 	$page['cap'],
+			// 		// 	$page['slug'],
+			// 		// 	array( $this, 'addMenuPage' ),
+			// 		// 	$page['icon'],
+			// 		// 	$page['position']
+			// 		// );
+			// 		add_menu_page(
+			// 			$page->page_title . 'Sadd',
+			// 			$page->menu_title . 'Sadd',
+			// 			$page->capablity,
+			// 			$page->slug,
+			// 			array( $this, 'addMenuPage' ),
+			// 			$page->icon,
+			// 			$page->position
+			// 		);
+			// 		break;
+			// }
 		}
 	}
 
